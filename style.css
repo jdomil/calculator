@@ -62,6 +62,8 @@ h1 {
 
 #calc-equals {
     border-radius: 0 0 7px 0;
+    background-color: orange;
+    color: white;
 }
 
 #calc-parent {
