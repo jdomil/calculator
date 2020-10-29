@@ -1,19 +1,59 @@
+// Number buttons
+const oneBtn = document.getElementById('calc-one');
+const twoBtn = document.getElementById('calc-two');
+const threeBtn = document.getElementById('calc-three');
+const fourBtn = document.getElementById('calc-four');
+const fiveBtn = document.getElementById('calc-five');
+const sixBtn = document.getElementById('calc-six');
+const sevenBtn = document.getElementById('calc-seven');
+const eightBtn = document.getElementById('calc-eight');
+const nineBtn = document.getElementById('calc-nine');
+const zeroBtn = document.getElementById('calc-zero');
+
+// Function buttons
+const decimalBtn = document.getElementById('calc-decimal');
+const clearBtn = document.getElementById('calc-clear');
+const backspaceBtn = document.getElementById('calc-backspace');
+const divideBtn = document.getElementById('calc-divide');
+const multiplyBtn = document.getElementById('calc-multiply');
+const substractBtn = document.getElementById('calc-substract');
+const addBtn = document.getElementById('calc-add');
+const equalsBtn = document.getElementById('calc-equals');
+
+// Display
+let displayValElement = document.getElementById('calc-display-val');
+
+// Arrays of number and operatorss buttons
+const calcNumBtns = document.querySelectorAll('.calc-btn-num');
+const calcOperatorBtns = document.querySelectorAll('.calc-btn-operator');
+
+// Operations variable declaration
+let displayVal = 0;
+let pendingVal;
+let operator;
+
+// Addition
 const add = function(num1, num2) {
     return Number(num1) + Number(num2);
 }
 
+// Substraction
 const substract = function(num1, num2) {
     return Number(num1) - Number(num2);
 }
 
+// Multiplciation
 const multiply = function(num1, num2) {
     return Number(num1) * Number(num2);
 }
 
+// Division
 const divide = function(num1, num2) {
     return Number(num1) / Number(num2);
+    
 }
 
+// Operation
 const operate = function(operator, num1, num2) {
     switch (operator) {
         case '+':
@@ -27,35 +67,7 @@ const operate = function(operator, num1, num2) {
     }
 }
 
-const oneBtn = document.getElementById('calc-one');
-const twoBtn = document.getElementById('calc-two');
-const threeBtn = document.getElementById('calc-three');
-const fourBtn = document.getElementById('calc-four');
-const fiveBtn = document.getElementById('calc-five');
-const sixBtn = document.getElementById('calc-six');
-const sevenBtn = document.getElementById('calc-seven');
-const eightBtn = document.getElementById('calc-eight');
-const nineBtn = document.getElementById('calc-nine');
-const zeroBtn = document.getElementById('calc-zero');
-
-const decimalBtn = document.getElementById('calc-decimal');
-const clearBtn = document.getElementById('calc-clear');
-const backspaceBtn = document.getElementById('calc-backspace');
-const divideBtn = document.getElementById('calc-divide');
-const multiplyBtn = document.getElementById('calc-multiply');
-const substractBtn = document.getElementById('calc-substract');
-const addBtn = document.getElementById('calc-add');
-const equalsBtn = document.getElementById('calc-equals');
-
-let displayValElement = document.getElementById('calc-display-val');
-
-const calcNumBtns = document.querySelectorAll('.calc-btn-num');
-const calcOperatorBtns = document.querySelectorAll('.calc-btn-operator');
-
-let displayVal = 0;
-let pendingVal;
-let operator;
-
+// Update display with number buttons presses
 const updateDisplayVal = (e) => {
     let btnText = e.target.innerText;
 
@@ -66,6 +78,7 @@ const updateDisplayVal = (e) => {
     displayValElement.innerText = displayVal;
 }
 
+// Reset display for second operand
 const logOperation = (e) => {
 
     if (operator)
@@ -77,14 +90,24 @@ const logOperation = (e) => {
     displayVal = 0;
 }
 
+// Push result to display
 const submitOperation = () => {
-    // console.log('Operator:' + operator + '. Num1:' + pendingVal + '. Num 2:' + displayVal);
     if (operator) {
-        displayValElement.innerText = operate(operator, pendingVal, displayVal);
+        displayValElement.innerText = Math.round(
+            operate(operator, pendingVal, displayVal)*100000) / 100000;
         operator = 0;
     }
 }
 
+// Clear function
+const clearValues = () => {
+    operator = 0;
+    pendingVal = 0;
+    displayVal = 0;
+    displayValElement.innerText = '0';
+}
+
+// Buttons event listeners
 calcNumBtns.forEach(btn => {
     btn.addEventListener('click', updateDisplayVal, false);
 });
@@ -94,6 +117,8 @@ calcOperatorBtns.forEach(btn => {
 });
 
 equalsBtn.addEventListener('click', submitOperation, false)
+
+clearBtn.addEventListener('click', clearValues, false)
 
 
 

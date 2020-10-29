@@ -28,12 +28,12 @@ body {
 }
 
 #calc-zero {
-    width: 52.6666666667px;
+    width: 52px;
     border-radius: 0 0 0 7px;
 }
 
 #calc-clear {
-    width: 52.6666666667px;
+    width: 52px;
 }
 
 #calc-display-val {
