@@ -23,6 +23,10 @@ const equalsBtn = document.getElementById('calc-equals');
 // Display
 let displayValElement = document.getElementById('calc-display-val');
 
+// Theme buttons
+const lightBtn = document.getElementById('light-color');
+const darkBtn = document.getElementById('dark-color');
+
 // Arrays of number and operatorss buttons
 const calcNumBtns = document.querySelectorAll('.calc-btn-num');
 const calcOperatorBtns = document.querySelectorAll('.calc-btn-operator');
@@ -30,6 +34,7 @@ const calcOperatorBtns = document.querySelectorAll('.calc-btn-operator');
 // Operations variable declaration
 let displayVal = 0;
 let pendingVal;
+let arrayDisplayVal = [];
 let operator;
 
 // Addition
@@ -93,8 +98,11 @@ const logOperation = (e) => {
 // Push result to display
 const submitOperation = () => {
     if (operator) {
-        displayValElement.innerText = Math.round(
+        // Round to 5 decimals max
+        let operationResult = Math.round(
             operate(operator, pendingVal, displayVal)*100000) / 100000;
+        let finalResult = operationResult != Infinity ? operationResult : '😬';
+        displayValElement.innerText = finalResult;
         operator = 0;
     }
 }
@@ -107,6 +115,40 @@ const clearValues = () => {
     displayValElement.innerText = '0';
 }
 
+// Decimal values
+const decimalValue = () => {
+    displayVal += '.';
+    displayValElement.innerText = displayVal;
+}
+
+// Color theme selector
+const setLightTheme = () => {
+    localStorage.setItem('theme', 'theme-light');
+    document.documentElement.className = 'theme-light';
+}
+
+const setDarkTheme = () => {
+    localStorage.setItem('theme', 'theme-dark');
+    document.documentElement.className = 'theme-dark';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'theme-light') {
+        setLightTheme();
+    } else {
+        setDarkTheme();
+    }
+ })();
+
+ // Backspace functionality
+ const backspace = () => {
+     arrayDisplayVal = displayVal.split('');
+     arrayDisplayVal.pop();
+     displayVal = arrayDisplayVal.join('');
+
+     displayValElement.innerText = displayVal == '' ? '0' : displayVal;
+ }
+
 // Buttons event listeners
 calcNumBtns.forEach(btn => {
     btn.addEventListener('click', updateDisplayVal, false);
@@ -116,10 +158,13 @@ calcOperatorBtns.forEach(btn => {
     btn.addEventListener('click', logOperation, false);
 });
 
-equalsBtn.addEventListener('click', submitOperation, false)
+equalsBtn.addEventListener('click', submitOperation, false);
+clearBtn.addEventListener('click', clearValues, false);
+decimalBtn.addEventListener('click', decimalValue, false);
+backspaceBtn.addEventListener('click', backspace, false);
 
-clearBtn.addEventListener('click', clearValues, false)
-
+lightBtn.addEventListener('click', setLightTheme, false);
+darkBtn.addEventListener('click', setDarkTheme, false);
 
 
 

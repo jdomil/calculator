@@ -1,15 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
+.theme-light {
+    --color-background: white;
+    --color-primary: silver;
+    --color-secondary: gray;
+    --color-btn: black;
+    --color-font: black;
+}
+
+.theme-dark {
+    --color-background: #1B1D21;
+    --color-primary: #5F5F61;
+    --color-secondary:gray;
+    --color-btn: white;
+    --color-font: white;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: var(--color-background);
 }
 
 .calc-btn {
-    background-color: silver;
-    color: black;
+    background-color: var(--color-primary);
+    color: var(--color-btn);
     width: 25px;
     height: 45px;
-    border: 1px solid gray;
+    border: 1px solid var(--color-secondary);
     text-align: center;
     cursor: pointer;
     font-size: 32px;
@@ -39,9 +56,9 @@ body {
 #calc-display-val {
     color: white;
     text-align: right;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
-    border-top: 1px solid grey;
+    border-left: 1px solid var(--color-secondary);
+    border-right: 1px solid var(--color-secondary);
+    border-top: 1px solid var(--color-secondary);
     font-size: 48px;
     background-color: #383838;
     overflow: hidden;
@@ -58,6 +75,7 @@ body {
 h1 {
     text-align: center;
     margin-top: 50px;
+    color: var(--color-font);
 }
 
 #calc-equals {
@@ -66,6 +84,30 @@ h1 {
     color: white;
 }
 
-#calc-parent {
+.center {
     margin-left: calc(50% - 100px);
+}
+
+#color-picker {
+    margin-top: 25px;
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.color-picker-btn {
+    margin: 15px;
+    font-size: 22px;
+    width: 100px;
+}
+
+#dark-color {
+    background-color: #5F5F61;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+
+#dark-color:hover {
+    background-color: var(--color-secondary);
 }
