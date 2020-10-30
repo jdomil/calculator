@@ -36,6 +36,7 @@ let displayVal = 0;
 let pendingVal;
 let arrayDisplayVal = [];
 let operator;
+let decimalValue = false;
 
 // Addition
 const add = function(num1, num2) {
@@ -103,6 +104,9 @@ const submitOperation = () => {
             operate(operator, pendingVal, displayVal)*100000) / 100000;
         let finalResult = operationResult != Infinity ? operationResult : '😬';
         displayValElement.innerText = finalResult;
+        // Reset conditional values
+        displayVal = 0;
+        decimalValue = false;
         operator = 0;
     }
 }
@@ -116,10 +120,15 @@ const clearValues = () => {
 }
 
 // Decimal values
-const decimalValue = () => {
-    displayVal += '.';
-    displayValElement.innerText = displayVal;
+const addDecimalValue = () => {
+    // Figure out if number has a decimal already
+    if (!decimalValue) {
+        displayVal += '.';
+        displayValElement.innerText = displayVal;
+    }
+    decimalValue = true;
 }
+
 
 // Color theme selector
 const setLightTheme = () => {
@@ -160,7 +169,7 @@ calcOperatorBtns.forEach(btn => {
 
 equalsBtn.addEventListener('click', submitOperation, false);
 clearBtn.addEventListener('click', clearValues, false);
-decimalBtn.addEventListener('click', decimalValue, false);
+decimalBtn.addEventListener('click', addDecimalValue, false);
 backspaceBtn.addEventListener('click', backspace, false);
 
 lightBtn.addEventListener('click', setLightTheme, false);
